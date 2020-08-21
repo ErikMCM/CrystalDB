@@ -1,0 +1,27 @@
+{
+  "name": "crystaldb",
+  "version": "1.2.1",
+  "description": "A simple JSON Database System, meant for smaller applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErikMCM/CrystalDB.git"
+  },
+  "keywords": [
+    "JSON",
+    "Database",
+    "Visual",
+    "Simple",
+    "Clear",
+    "CrystalDB"
+  ],
+  "author": "ErikMCM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ErikMCM/CrystalDB/issues"
+  },
+  "homepage": "https://github.com/ErikMCM/CrystalDB#readme"
+}
