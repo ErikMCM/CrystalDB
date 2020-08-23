@@ -61,6 +61,12 @@ exports.write = function (file, newData) {
     var fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
     var fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
 
+    var checker = file.toString();
+    
+    if (checker.length <= 0 || checker.length > 140) {
+        return console.error("Too long of a file ID! Your file ID needs to be from 1-140.");
+    };
+
     if (!fs.existsSync(fileLocation)) {
         if (fs.existsSync(fileLocation2)) {
             fs.copyFile(fileLocation2, fileLocation, (err) => {
@@ -81,12 +87,11 @@ exports.write = function (file, newData) {
             var objectLol = JSON.parse(newData);
 
             if (!jsonData) {
-                fs.writeFileSync(fileLocation, newData);
+                fs.writeFileSync(fileLocation, JSON.stringify(objectLol));
             } else if (jsonData) {
-
                 Object.assign(parsed, objectLol);
-
-                fs.writeFileSync(fileLocation, parsed);
+                
+                fs.writeFileSync(fileLocation, JSON.stringify(parsed));
             };
         } catch (e) {
             if (e) {
@@ -151,4 +156,4 @@ exports.delete = function (file) {
             return console.error((`There was a delete error: ${e}`))
         };
     };
-} 
+}
