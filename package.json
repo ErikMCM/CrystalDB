@@ -1,6 +1,6 @@
 {
   "name": "crystaldb",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A simple JSON Database System, meant for smaller applications.",
   "main": "index.js",
   "scripts": {
