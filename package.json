@@ -1,6 +1,6 @@
 {
   "name": "crystaldb",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A simple JSON Database System, meant for smaller applications.",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,5 @@
   "bugs": {
     "url": "https://github.com/ErikMCM/CrystalDB/issues"
   },
-  "homepage": "https://github.com/ErikMCM/CrystalDB#readme"
+  "homepage": "https://crystaldb.js.org/"
 }
