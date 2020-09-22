@@ -4,3 +4,8 @@ $(document).ready(function() {
     SyntaxHighlighter.all();
 
 });
+
+function closeWarning() {
+    var removeElement = document.getElementById("myHeader");
+    removeElement.parentNode.removeChild(removeElement);
+}
