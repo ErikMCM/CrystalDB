@@ -15,7 +15,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
 
-    <title>CrystalDB v1.2.3 Documentation</title>
+    <title>CrystalDB v1.2.4 Documentation</title>
 
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -42,6 +42,10 @@
 
 <body>
 
+<div class="bingsonz" id="myHeader" style="padding: 0.1px 0.1px; background: #555; color: #f1f1f1; position: sticky;  top: 0; width: 100%;  z-index: 50">
+    <h2 style="text-align:center;"><img src="images/notification.png" height="35" width="35"> CrystalDB has updated. Please make sure you are running the newest version of CrystalDB (v1.2.4), for best preformance, and more functions, by running <code>npm update</code> <button style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;" onclick="closeWarning()"><img src="images/close.png" height="35" width="35"></button></h2>
+</div>
+
     <div id="wrapper">
 
         <div class="container">
@@ -53,7 +57,7 @@
                         <div class="big-title text-center">
                             <img src="images/Logo.png" width = "150" height="150">
                             <h1>CrystalDB Documentation</h1>
-                            <p class="lead">For CrystalDB v1.2.3</p>
+                            <p class="lead">For CrystalDB v1.2.4</p>
                         </div>
                         <!-- end title -->
                     </div>
@@ -78,7 +82,8 @@
                                     <li><a href="#line7_1">Initializing</a></li>
                                     <li><a href="#line7_2">Writing</a></li>
                                     <li><a href="#line7_3">Getting</a></li>
-                                    <li><a href="#line7_4">Deleting</a></li>
+                                    <li><a href="#line7_4">Fetching</a></li>
+                                    <li><a href="#line7_5">Deleting</a></li>
                                 </ul>
                             </li>
                             <li><a href="#line11">Copyright and License</a>
@@ -87,9 +92,13 @@
                 </div>
                 <div class="col-md-9">
                     <section id="line1" class="section">
+                        <br />
+                        <br />
 
                         <div class="row">
+                            <br />
                             <div class="col-md-12 left-align">
+                                
                                 <h2 class="dark-text">Getting Started</h2>
                             </div>
                             <!-- end col -->
@@ -100,8 +109,11 @@
                             <div class="col-md-12">
                                 <p>CrystalDB is a <a href="https://nodejs.org/" target="_blank">Node.js</a> module. This module is a NoSQL, JSON Database System. This system works similarly to other JSON Document Systems, but is boiled down, for simpler projects, where large database systems are not required. This system does all of the computing, and storing in the module, so all you have to do, is simply pass through, the file ID, and the data.</p>
                     <section id="line2" class="section">
+                        <br />
+                        <br />
 
                         <div class="row">
+                            <br />
                             <div class="col-md-12 left-align">
                                 <h2 class="dark-text">How to Install CrystalDB</h2>
                             </div>
@@ -129,8 +141,12 @@
                     </section>
                     <!-- end section -->
                     <section id="line7" class="section">
+                        <br />
+                        <br />
+
 
                         <div class="row">
+                            <br />
                             <div class="col-md-12 left-align">
                                 <h2 class="dark-text">Library Reference</h2>
                             </div>
@@ -193,10 +209,31 @@
                         <!-- end row -->
 
                         <hr>
+                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 id="line7_4">Fetching</h4>
+                                <p>Fetching data is a promise. When you fetch data, you will need to pass through 2 arguments, the file ID, and the object you want to fetch. If there is an error, such as the file not existing or the object not existing in the file, the promise will be rejected. The data returned is the requested object.</p>
+                        
+                                <pre class="brush: js">
+                                                            const db = require("crystaldb");
+                                                            db.initialize();
+                                                            
+                                                            db.fetch("file-ID", "foo")
+                                                            .then(fetchedObject =>{
+                                                                console.log(fetchedObject); //Logs "bar"
+                                                            }).catch(err => console.log(err));
+                                                        </pre>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <hr>
 
                         <div class="row">
                             <div class="col-md-8">
-                                <h4 id="line7_4">Deleting</h4>
+                                <h4 id="line7_5">Deleting</h4>
                                 <p>Deleting data will delete any files with the file ID passed through. <b>This action is irreversible, and can not be undone</b> There will be an error if something is using the file, or the file is locked.</p>
 
                                 <pre class="brush: js">
@@ -212,8 +249,12 @@
                     </section>
                     <!-- end section -->
                     <section id="line11" class="section">
+                        <br />
+                        <br />
+                        
 
                         <div class="row">
+                            <br />
                             <div class="col-md-12 left-align">
                                 <h2 class="dark-text">Copyright and license</h2>
                             </div>
