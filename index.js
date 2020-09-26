@@ -1,9 +1,53 @@
 const fs = require("fs");
 
+function checkExistance(fileName) {
+    let fileLocation = './crystaldb/crystaldbmain/crystal' + fileName.toString() + ".json";
+    let fileLocation2 = './crystaldb/crystaldbbackup/crystal' + fileName.toString() + ".json";
+
+    if (fs.existsSync(fileLocation)) {
+        if (fs.existsSync(fileLocation2)) {
+            return true;
+        };
+    };
+
+    if (!fs.existsSync(fileLocation)) {
+        if (!fs.existsSync(fileLocation2)) {
+            return false
+        };
+    };
+
+    if (fs.existsSync(fileLocation)) {
+        if (!fs.existsSync(fileLocation2)) {
+            fs.copyFile(fileLocation, fileLocation2, (err) => {
+                if (err) { console.log("There was a copy error: " + err); return; }
+                if (!err) { console.log('File has been found in main, but not backup. Automatically copied it to the "crystaldbbackup" directory. (./crystaldb/crystaldbbackup/)'); }
+                return true
+            });
+        };
+    };
+
+    if (!fs.existsSync(fileLocation)) {
+        if (fs.existsSync(fileLocation2)) {
+            fs.copyFile(fileLocation2, fileLocation, (err) => {
+                if (err) { console.log("There was a copy error: " + err); return; }
+                if (!err) { console.log('File has been found in the backup. Automatically copied it to the "crystaldbmain" directory. (./crystaldb/crystaldbmain/)'); }
+                return true
+            });
+        };
+    };
+};
+
+function parseFile(fileName) {
+    let fileLocation = './crystaldb/crystaldbmain/crystal' + fileName.toString() + ".json";
+    const parsedJSON = JSON.parse(fs.readFileSync(fileLocation, { encoding: "utf-8" }))
+
+    return parsedJSON;
+}
+
 exports.initialize = function () {
-    var baseDir = './crystaldb';
-    var dir = './crystaldb/crystaldbmain';
-    var dir2 = './crystaldb/crystaldbbackup';
+    let baseDir = './crystaldb';
+    let dir = './crystaldb/crystaldbmain';
+    let dir2 = './crystaldb/crystaldbbackup';
 
     if (!fs.existsSync(baseDir)) {
         fs.mkdirSync(baseDir);
@@ -20,140 +64,118 @@ exports.initialize = function () {
     };
 }
 
+//Get Function
 exports.get = function (file) {
-    var fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
-    var fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
+    let isExistant = checkExistance(file)
 
-    if (!fs.existsSync(fileLocation)) {
-        if (!fs.existsSync(fileLocation2)) {
-            return Promise.reject(new Error(`File "${file.toString()}" does not exist!`));
-        };
-    };
+    //Checks if File is Existant (function returns true or false)
+    if (isExistant == true) {
+        let parsedJSON = parseFile(file)
 
-    if (fs.existsSync(fileLocation)) {
-        if (!fs.existsSync(fileLocation2)) {
-            fs.copyFile(fileLocation, fileLocation2, (err) => {
-                if (err) { console.log("There was a copy error: " + err); return; }
-                if (!err) { console.log('File has been found in main, but not backup. Automatically copied it to the "crystaldbbackup" directory. (./crystaldb/crystaldbbackup/)'); }
-            });
-        };
-        const readFileBase = fs.readFileSync(fileLocation);
-        return Promise.resolve(JSON.parse(readFileBase));
-    };
-
-    if (!fs.existsSync(fileLocation)) {
-        if (fs.existsSync(fileLocation2)) {
-            fs.copyFile(fileLocation2, fileLocation, (err) => {
-                if (err) { console.log("There was a copy error: " + err); return; }
-                if (!err) { console.log('File has been found in the backup. Automatically copied it to the "crystaldbmain" directory. (./crystaldb/crystaldbmain/)'); }
-            });
-        };
-    };
-
-    if (fs.existsSync(fileLocation)) {
-        const readFileBackup = fs.readFileSync(fileLocation2, { encoding: "utf-8" });
-
-        return Promise.resolve(JSON.parse(readFileBackup));
-    } else { return Promise.reject(new Error(`File ${file.toString()} does not exist!`)); };
+        return Promise.resolve(parsedJSON)
+    } else if (isExistant == false) {
+        return Promise.reject(new Error(`File ${file.toString()} does not exist!`));
+    }
 }
 
-exports.write = function (file, newData) {
-    var fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
-    var fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
+//Fetch Function
+exports.fetch = function (file, variable) {
+    let isExistant = checkExistance(file)
 
-    var checker = file.toString();
-    
-    if (checker.length <= 0 || checker.length > 140) {
-        return console.error("Too long of a file ID! Your file ID needs to be from 1-140.");
-    };
+    //Checks if File is Existant (function returns true or false)
+    if (isExistant == true) {
+        let parsedJSON = parseFile(file)
 
-    if (!fs.existsSync(fileLocation)) {
-        if (fs.existsSync(fileLocation2)) {
-            fs.copyFile(fileLocation2, fileLocation, (err) => {
-                if (err) { console.log("There was a copy error: " + err) };
-                return;
-            });
-
-            console.log('File has been found in the backup. Automatically copied it to the "crystaldbmain" directory. (./crystaldb/crystaldbmain/)');
+        if (!parsedJSON[variable]) {
+            return Promise.reject(new Error(`Variable ${variable} does not exist in file ${file.toString()}!`));
         }
+        return Promise.resolve(parsedJSON[variable])
+    } else if (isExistant == false) {
+        return Promise.reject(new Error(`File ${file.toString()} does not exist!`));
+    }
+}
+
+//Write Function
+exports.write = function (file, newData) {
+    let fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
+    let fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
+
+    let checker = file.toString();
+
+    //Checks if file name is too long
+    if (checker.length <= 0 || checker.length > 140) {
+        return Promise.reject(new Error("Too long of a file ID! Your file ID needs to be from 1-140."))
     };
 
-    if (fs.existsSync(fileLocation)) {
-        try {
-            var jsonData = fs.readFileSync(fileLocation, { encoding: "utf-8" });
-            try {
-                var parsed = JSON.parse(jsonData);
-            } catch (e) { };
-            var objectLol = JSON.parse(newData);
+    //Checks if file includes forbidden characters
+    if (checker.includes("<" || ">" || ":" || "/" || "\\" || "|" || "?" || "*" || "\0")) {
+        return Promise.reject(new Error("Forbidden character in file name. Please visit https://crystaldb.js.org/forbiddencharacters.html to view the full list of forbidden file naming characters."))
+    };
 
-            if (!jsonData) {
-                fs.writeFileSync(fileLocation, JSON.stringify(objectLol));
-            } else if (jsonData) {
-                Object.assign(parsed, objectLol);
-                
-                fs.writeFileSync(fileLocation, JSON.stringify(parsed));
-            };
+    //Check if file exists
+    let isExistant = checkExistance(file)
+
+    if (isExistant == true) {
+        //File already exists according to checkExistance(), so we can just add data
+        try {
+            let parsed = parseFile(file)
+            let newJSONData = JSON.parse(newData);
+
+            Object.assign(parsed, newJSONData);
+
+            fs.writeFileSync(fileLocation, JSON.stringify(parsed));
+            return Promise.resolve("Successfully written to file.")
         } catch (e) {
             if (e) {
-                console.log(`There was a write error: ${e}`);
-                return;
+                return Promise.reject(new Error(`There was a write error: ${e}`))
             };
         };
-    };
+    } else if (isExistant == false) {
+        //If the file doesn't exist
+        try {
+            //Create the file with the data after 2 secs
+            fs.appendFileSync(fileLocation, newData);
 
-    if (!fs.existsSync(fileLocation)) {
-        if (!fs.existsSync(fileLocation2)) {
-            try {
-                fs.appendFileSync(fileLocation, newData);
+            function copy() {
+                fs.copyFile(fileLocation, fileLocation2, (err) => {
+                    if (err) { return Promise.reject(new Error("There was a copy error: " + err)) };
+                });
+            };
 
-                function copy() {
-                    fs.copyFile(fileLocation, fileLocation2, (err) => {
-                        if (err) { console.log("There was a copy error: " + err) };
-                        return;
-                    });
-                };
-
-                setTimeout(copy, 2000);
-            } catch (e) {
-                if (e) {
-                    console.log(`There was a write error: ${e}`);
-                    return;
-                };
+            setTimeout(copy, 2000);
+            return Promise.resolve("Successfully written to file.")
+        } catch (e) {
+            if (e) {
+                return Promise.reject(new Error(`There was a write error: ${e}`));
             };
         };
-    };
-
-    if (!fs.existsSync(fileLocation)) {
-        fs.copyFile(fileLocation2, fileLocation, (err) => {
-            if (err) { console.log("There was a copy error: " + err) };
-            return;
-        });
-
-        console.log('File has been found in the backup. Automatically copied it to the "crystaldbmain" directory. (./crystaldb/crystaldbmain/)');
-    };
-
-    if (!fs.existsSync(fileLocation2)) {
-        fs.copyFile(fileLocation, fileLocation2, (err) => {
-            if (err) { console.log("There was a copy error: " + err) };
-            return;
-        });
     };
 }
 
 exports.delete = function (file) {
     function remove() {
-        var fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
-        var fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
+        let isExistant = checkExistance(file)
+        if (isExistant == false) {
+            return Promise.reject(new Error(`File ${file.toString()} does not exist!`))
+        }
+        let fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
+        let fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
 
         fs.unlinkSync(fileLocation);
         fs.unlinkSync(fileLocation2);
     };
 
     try {
-        setTimeout(remove, 3000);
+        let isExistant = checkExistance(file)
+        if (isExistant == false) {
+            return Promise.reject(new Error(`File ${file.toString()} does not exist!`))
+        } else {
+            setTimeout(remove, 3000);
+            return Promise.resolve("Successfully deleted the file.")
+        }
     } catch (e) {
         if (e) {
-            return console.error((`There was a delete error: ${e}`))
+            return Promise.resolve(new Error(`There was a delete error: ${e}`))
         };
     };
 }
