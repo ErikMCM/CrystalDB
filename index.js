@@ -111,6 +111,27 @@ exports.grab = function (file, variable) {
     }
 }
 
+//Exists Function
+exports.exists = function (file, optionalVar) {
+    let isExistant = checkExistance(file);
+
+    if (isExistant == true) {
+        if (optionalVar) {
+            let data = parseFile(file)
+
+            if (data[optionalVar]) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        return true
+    } else if (isExistant == false) {
+        return false
+    }
+}
+
 //Write Function
 exports.write = function (file, newData) {
     let fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
