@@ -15,7 +15,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
 
-    <title>CrystalDB v1.2.5 Documentation</title>
+    <title>CrystalDB v1.2.6 Documentation</title>
 
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -43,7 +43,7 @@
 <body>
 
 <div class="bingsonz" id="myHeader" style="padding: 0.1px 0.1px; background: #555; color: #f1f1f1; position: sticky;  top: 0; width: 100%;  z-index: 50">
-    <h2 style="text-align:center;"><img src="images/notification.png" height="35" width="35"> CrystalDB has updated. Please make sure you are running the newest version of CrystalDB (v1.2.5), for best preformance, and more functions, by running <code>npm update</code> <button style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;" onclick="closeWarning()" ><img src="images/close.png" height="35" width="35"></button></h2>
+    <h2 style="text-align:center;"><img src="images/notification.png" height="35" width="35"> CrystalDB has updated. Please make sure you are running the newest version of CrystalDB (v1.2.6), for best preformance, and more functions, by running <code>npm update</code> <button style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;" onclick="closeWarning()" ><img src="images/close.png" height="35" width="35"></button></h2>
 </div>
 
     <div id="wrapper">
@@ -57,7 +57,7 @@
                         <div class="big-title text-center">
                             <img src="images/Logo.png" width = "150" height="150">
                             <h1>CrystalDB Documentation</h1>
-                            <p class="lead">For CrystalDB v1.2.5</p>
+                            <p class="lead">For CrystalDB v1.2.6</p>
                         </div>
                         <!-- end title -->
                     </div>
@@ -84,7 +84,8 @@
                                     <li><a href="#line7_3">Getting</a></li>
                                     <li><a href="#line7_4">Fetching</a></li>
                                     <li><a href="#line7_5">Grabbing</a></li>
-                                    <li><a href="#line7_6">Deleting</a></li>
+                                    <li><a href="#line7_6">Existance</a></li>
+                                    <li><a href="#line7_7">Deleting</a></li>
                                 </ul>
                             </li>
                             <li><a href="#line11">Copyright and License</a>
@@ -253,10 +254,38 @@
                         <!-- end row -->
                         
                         <hr>
+                        
+                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 id="line7_6">Existance</h4>
+                                <p>Checking the existance is not a promise, which allows you to use it in If statements easily. You have 1 argument you need to pass through, and one that is optional. The first one is the file id, if the file exists, it will return true, the optional second one is the object in the file. If the file doesn't exist, then it'll return false. If the object is not existant in the file, it'll also return false.</p>
+                        
+                                <pre class="brush: js">
+                                                                                    const db = require("crystaldb");
+                                                                                    db.initialize();
+                                                                                    
+                                                                                    let fileExistance = db.exists("file-ID");
+                                                                                    
+                                                                                    if (fileExistance == true) {
+                                                                                        console.log("The file exists!");
+
+                                                                                        if (db.exists("file-ID", "foo") == true) {
+                                                                                            console.log("The object foo exists!");
+                                                                                        }
+                                                                                    }
+                                                                                    
+                                                                                </pre>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <hr>
 
                         <div class="row">
                             <div class="col-md-8">
-                                <h4 id="line7_6">Deleting</h4>
+                                <h4 id="line7_7">Deleting</h4>
                                 <p>Deleting data will delete any files with the file ID passed through. <b>This action is irreversible, and can not be undone</b> There will be an error if something is using the file, or the file is locked.</p>
 
                                 <pre class="brush: js">
