@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2020 ErikMCM.
+ * Released under the MIT License.
+*/
+
+/**
+ * @param {string} file - The file ID
+ * @param {string} variable - The JSON object you want to have returned
+ * @param {string} newData - The new JSON data you want to add to the file
+ */
+
+
 const fs = require("fs");
 
 function checkExistance(fileName) {
@@ -44,6 +56,9 @@ function parseFile(fileName) {
     return parsedJSON;
 }
 
+/**
+ * @description Initializes Database. This only needs to be called once, when your application starts up, before you read/write any data.
+ */
 exports.initialize = function () {
     let baseDir = './crystaldb';
     let dir = './crystaldb/crystaldbmain';
@@ -64,22 +79,55 @@ exports.initialize = function () {
     };
 }
 
+/**
+ * @description Gets data in a promise. You can have an optional object you want returned.
+ * @param {string} fileID - The FileID
+ * @param {string} object - [OPTIONAL] The object you want returned 
+ * @returns {object} Promise with file data, or the object requested
+ */
 //Get Function
-exports.get = function (file) {
-    let isExistant = checkExistance(file)
-
-    //Checks if File is Existant (function returns true or false)
-    if (isExistant == true) {
-        let parsedJSON = parseFile(file)
-
-        return Promise.resolve(parsedJSON)
-    } else if (isExistant == false) {
-        return Promise.reject(new Error(`File ${file.toString()} does not exist!`));
+exports.get = function (fileID, object) {
+    var variable = null
+    if (object) {
+        if (object.object) {
+            variable = object.object
+        } else {
+            variable = object
+        }
     }
+    var file = fileID
+    let isExistant;
+    let parsedJSON;
+
+    if (!typeof file == "string") { Promise.reject(new Error(`TypeError: Got ${typeof file} expected string`)) }
+
+
+    isExistant = checkExistance(file)
+    if (variable) {
+        if (!typeof variable == "string") { Promise.reject(new Error(`TypeError: Got ${typeof variable} expected string`)) }
+        if (isExistant == true) {
+            parsedJSON = parseFile(file)
+
+            if (!parsedJSON[variable]) { return Promise.reject(new Error(`Variable ${variable} does not exist in file ${file.toString()}!`)) }
+
+            return Promise.resolve(parsedJSON[variable])
+        } else {
+            return Promise.reject(new Error(`File ${file.toString()} does not exist!`));
+        }
+    }
+
+
+    parsedJSON = parseFile(file)
+    return Promise.resolve(parsedJSON)
 }
+
+/**
+ * @deprecated CrystalDB's fetch() function is depricated, and will be fully removed in v1.3.5. The get() function now provides the same purpose if you add in an optional object to return, otherwise, just pur in the File ID to return the data of the document. For more information, please review https://crystaldb.js.org/
+ */
 
 //Fetch Function
 exports.fetch = function (file, variable) {
+    console.warn("CrystalDB's fetch() function is depricated, and will be fully removed in v1.3.5. The get() function now provides the same purpose if you add in an optional object to return, otherwise, just put in the File ID to return the data of the document. For more information, please review https://crystaldb.js.org/")
     let isExistant = checkExistance(file)
 
     //Checks if File is Existant (function returns true or false)
@@ -95,31 +143,67 @@ exports.fetch = function (file, variable) {
     }
 }
 
+/**
+ * @description Gets data in a promise. You can have an optional object you want returned.
+ * @param {string} fileID - The FileID
+ * @param {string} object - [OPTIONAL] The object you want returned
+ * @returns {object} The data, or error, not in a promise. 
+ */
 //Grab Function
-exports.grab = function (file, variable) {
-    let isExistant = checkExistance(file)
-
-    if (isExistant == true) {
-        let parsedJSON = parseFile(file)
-
-        if (!parsedJSON[variable]) {
-            return new Error(`Variable ${variable} does not exist in file ${file.toString()}!`)
+exports.grab = function (fileID, object) {
+    var variable = null
+    if (object) {
+        if (object.object) {
+            variable = object.object
+        } else {
+            variable = object
         }
-        return parsedJSON[variable]
-    } else if (isExistant == false) {
-        return new Error(`File ${file.toString()} does not exist!`)
     }
-}
+    var file = fileID
+    let isExistant;
+    let parsedJSON;
+    isExistant = checkExistance(file)
+    if (!typeof file == "string") { return }
 
+    if (variable) {
+        if (!typeof variable == "string") { return }
+        if (isExistant == true) {
+            parsedJSON = parseFile(file)
+
+            if (!parsedJSON[variable]) { return new Error(`Variable ${variable} does not exist in file ${file.toString()}!`) }
+
+            return parsedJSON[variable]
+        } else {
+            return new Error(`File ${file.toString()} does not exist!`);
+        }
+    }
+    parsedJSON = parseFile(file)
+    return parsedJSON
+}
+/**
+ * @description Gets data in a promise. You can have an optional object you want returned.
+ * @param {string} fileID - The FileID
+ * @param {string} object - [OPTIONAL] The object you want returned
+ * @returns {boolean} The result. If the file, and the optional object, exists, it returns true. If any don't exist, it returns false.
+ */
 //Exists Function
-exports.exists = function (file, optionalVar) {
+exports.exists = function (fileID, object) {
+    var variable = null
+    if (object) {
+        if (object.object) {
+            variable = object.object
+        } else {
+            variable = object
+        }
+    }
+    var file = fileID
     let isExistant = checkExistance(file);
 
     if (isExistant == true) {
-        if (optionalVar) {
+        if (variable) {
             let data = parseFile(file)
 
-            if (data[optionalVar]) {
+            if (data[variable]) {
                 return true
             } else {
                 return false
@@ -132,8 +216,15 @@ exports.exists = function (file, optionalVar) {
     }
 }
 
+/**
+ * @description Writes data to the file
+ * @param {string} fileID - The FileID
+ * @param {string} newData - The data you want to write to the file
+ * @returns {string} If there is an error, it will return it. It's good to have it in there.
+ */
 //Write Function
-exports.write = function (file, newData) {
+exports.write = function (fileID, newData) {
+    var file = fileID
     let fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
     let fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
 
@@ -189,30 +280,64 @@ exports.write = function (file, newData) {
     };
 }
 
-exports.delete = function (file) {
-    function remove() {
-        let isExistant = checkExistance(file)
-        if (isExistant == false) {
-            return Promise.reject(new Error(`File ${file.toString()} does not exist!`))
-        }
-        let fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
-        let fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
 
-        fs.unlinkSync(fileLocation);
-        fs.unlinkSync(fileLocation2);
-    };
-
-    try {
-        let isExistant = checkExistance(file)
-        if (isExistant == false) {
-            return Promise.reject(new Error(`File ${file.toString()} does not exist!`))
+/**
+ * @description Deletes a file or object. If you only pass through the fileID, it will delete the file, if you pass in the object option, it will delete that object in the file.
+ * @param {string} fileID - The FileID
+ * @param {string} newData - [OPTIONAL] The object you want to delete
+ * @returns {string} If there is an error, it will return it. It's good to have it in there.
+ */
+exports.delete = function (fileID, object) {
+    var variable = null
+    if (object) {
+        if (object.object) {
+            variable = object.object
         } else {
-            setTimeout(remove, 3000);
-            return Promise.resolve("Successfully deleted the file.")
+            variable = object
         }
-    } catch (e) {
-        if (e) {
-            return Promise.resolve(new Error(`There was a delete error: ${e}`))
+    }
+    var file = fileID
+    let fileLocation = './crystaldb/crystaldbmain/crystal' + file.toString() + ".json";
+    let fileLocation2 = './crystaldb/crystaldbbackup/crystal' + file.toString() + ".json";
+    if (!object) {
+        function remove() {
+            let isExistant = checkExistance(file)
+            if (isExistant == false) {
+                return Promise.reject(new Error(`File ${file.toString()} does not exist!`))
+            }
+            
+
+            fs.unlinkSync(fileLocation);
+            fs.unlinkSync(fileLocation2);
         };
-    };
+
+        try {
+            let isExistant = checkExistance(file)
+            if (isExistant == false) {
+                return Promise.reject(new Error(`File ${file.toString()} does not exist!`))
+            } else {
+                setTimeout(remove, 3000);
+                return Promise.resolve("Successfully deleted the file.")
+            }
+        } catch (e) {
+            if (e) {
+                return Promise.resolve(new Error(`There was a delete error: ${e}`))
+            };
+        };
+    } else {
+        if (checkExistance(file) == false) {
+            return Promise.reject(new Error(`File ${file.toString()} does not exist!`))
+        }
+
+        let data = parseFile(file)
+
+        if (data[variable]) {
+            delete data[variable]
+
+            fs.writeFileSync(fileLocation, JSON.stringify(data));
+            return Promise.resolve("Successfully deleted the object.")
+        } else {
+            return Promise.reject(new Error(`The object ${variable.toString()} does not exist!`))
+        }
+    }
 }
