@@ -15,7 +15,11 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
 
-    <title>CrystalDB v1.2.6 Documentation</title>
+    <meta property="og:title" content="CrystalDB v1.2.7">
+    <meta property="og:description" content="CrystalDB Documentation for v1.2.7">
+    <meta property="og:image" content="https://crystaldb.js.org/images/Logo.png">
+
+    <title>CrystalDB v1.2.7 Documentation</title>
 
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -42,9 +46,18 @@
 
 <body>
 
-<div class="bingsonz" id="myHeader" style="padding: 0.1px 0.1px; background: #555; color: #f1f1f1; position: sticky;  top: 0; width: 100%;  z-index: 50">
-    <h2 style="text-align:center;"><img src="images/notification.png" height="35" width="35"> CrystalDB has updated. Please make sure you are running the newest version of CrystalDB (v1.2.6), for best preformance, and more functions, by running <code>npm update</code> <button style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;" onclick="closeWarning()" ><img src="images/close.png" height="35" width="35"></button></h2>
-</div>
+    <div class="bingsonz" id="myHeader"
+        style="padding: 0.1px 0.1px; background: #555; color: #f1f1f1; position: sticky;  top: 0; width: 100%;  z-index: 50">
+        <h2 style="text-align:center;"><img src="images/notification.png" height="35" width="35"> CrystalDB has updated.
+            Please make sure you are running the newest version of CrystalDB (v1.2.7), for best preformance, and more
+            functions, by running <code>npm update</code> This update was huge, and it is <b>IMPORTANT</b> that you
+            check the <a href="https://github.com/ErikMCM/CrystalDB/blob/v1.2.7/CHANGELOG.md" target="_blank">change
+                log,</a> to fix any issues in your code. <a
+                href="https://github.com/ErikMCM/CrystalDB/blob/v1.2.7/CHANGELOG.md"
+                target="_blank">https://github.com/ErikMCM/CrystalDB/blob/v1.2.7/CHANGELOG.md</a><button
+                style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;"
+                onclick="closeWarning()"><img src="images/close.png" height="35" width="35"></button></h2>
+    </div>
 
     <div id="wrapper">
 
@@ -55,9 +68,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="big-title text-center">
-                            <img src="images/Logo.png" width = "150" height="150">
+                            <img src="images/Logo.png" width="150" height="150">
                             <h1>CrystalDB Documentation</h1>
-                            <p class="lead">For CrystalDB v1.2.6</p>
+                            <p class="lead">For CrystalDB v1.2.7</p>
                         </div>
                         <!-- end title -->
                     </div>
@@ -73,7 +86,8 @@
             <div class="row">
 
                 <div class="col-md-3">
-                    <nav class="docs-sidebar" data-spy="affix" data-offset-top="300" data-offset-bottom="200" role="navigation">
+                    <nav class="docs-sidebar" data-spy="affix" data-offset-top="300" data-offset-bottom="200"
+                        role="navigation">
                         <ul class="nav">
                             <li><a href="#line1">Getting Started</a></li>
                             <li><a href="#line2">How to Install CrystalDB</a></li>
@@ -82,15 +96,14 @@
                                     <li><a href="#line7_1">Initializing</a></li>
                                     <li><a href="#line7_2">Writing</a></li>
                                     <li><a href="#line7_3">Getting</a></li>
-                                    <li><a href="#line7_4">Fetching</a></li>
-                                    <li><a href="#line7_5">Grabbing</a></li>
-                                    <li><a href="#line7_6">Existance</a></li>
-                                    <li><a href="#line7_7">Deleting</a></li>
+                                    <li><a href="#line7_4">Grabbing</a></li>
+                                    <li><a href="#line7_5">Existance</a></li>
+                                    <li><a href="#line7_6">Deleting</a></li>
                                 </ul>
                             </li>
                             <li><a href="#line11">Copyright and License</a>
                         </ul>
-                    </nav >
+                    </nav>
                 </div>
                 <div class="col-md-9">
                     <section id="line1" class="section">
@@ -100,7 +113,7 @@
                         <div class="row">
                             <br />
                             <div class="col-md-12 left-align">
-                                
+
                                 <h2 class="dark-text">Getting Started</h2>
                             </div>
                             <!-- end col -->
@@ -109,251 +122,281 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <p>CrystalDB is a <a href="https://nodejs.org/" target="_blank">Node.js</a> module. This module is a NoSQL, JSON Database System. This system works similarly to other JSON Document Systems, but is boiled down, for simpler projects, where large database systems are not required. This system does all of the computing, and storing in the module, so all you have to do, is simply pass through, the file ID, and the data.</p>
-                    <section id="line2" class="section">
-                        <br />
-                        <br />
+                                <p>CrystalDB is a <a href="https://nodejs.org/" target="_blank">Node.js</a> module. This
+                                    module is a NoSQL, JSON Database System. This system works similarly to other JSON
+                                    Document Systems, but is boiled down, for simpler projects, where large database
+                                    systems are not required. This system does all of the computing, and storing in the
+                                    module, so all you have to do, is simply pass through, the file ID, and the data.
+                                </p>
+                                <section id="line2" class="section">
+                                    <br />
+                                    <br />
 
-                        <div class="row">
-                            <br />
-                            <div class="col-md-12 left-align">
-                                <h2 class="dark-text">How to Install CrystalDB</h2>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
-
-
-                        <hr>
-
-                        <h4>Installing through the Command Prompt/Terminal.</h4>
-
-                        <p>You'll want to make sure you have Node.js installed, to install it, go to the <a href="https://nodejs.org/en/download/" target="_blank">Node.js Downloads Page</a>.<br/><br/>CrystalDB's node module is "crystaldb". If you have installed node modules before, feel free to do it on your own, and skip ahead. If you have not, please watch the YouTube video below.</p>
-
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                                <div class="media">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/o4nQFSkzrto" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </section>
-                    <!-- end section -->
-                    <section id="line7" class="section">
-                        <br />
-                        <br />
+                                    <div class="row">
+                                        <br />
+                                        <div class="col-md-12 left-align">
+                                            <h2 class="dark-text">How to Install CrystalDB</h2>
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
 
 
-                        <div class="row">
-                            <br />
-                            <div class="col-md-12 left-align">
-                                <h2 class="dark-text">Library Reference</h2>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
+                                    <hr>
 
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 id="line7_1">Initializing</h4>
-                                <p>Initializing the Database will create all directories required. It is a good idea to keep it inside your code, incase a directory gets deleted, and needs to be restored, or if the function gets updated in a future update.</p>
-                                <pre class="brush: js">
+                                    <h4>Installing through the Command Prompt/Terminal.</h4>
+
+                                    <p>You'll want to make sure you have Node.js installed, to install it, go to the <a
+                                            href="https://nodejs.org/en/download/" target="_blank">Node.js Downloads
+                                            Page</a>.<br /><br />CrystalDB's node module is "crystaldb". If you have
+                                        installed node modules before, feel free to do it on your own, and skip ahead.
+                                        If you have not, please watch the YouTube video below.</p>
+
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-8 col-md-offset-2">
+                                            <div class="media">
+                                                <iframe width="560" height="315"
+                                                    src="https://www.youtube.com/embed/o4nQFSkzrto" frameborder="0"
+                                                    allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </section>
+                                <!-- end section -->
+                                <section id="line7" class="section">
+                                    <br />
+                                    <br />
+
+
+                                    <div class="row">
+                                        <br />
+                                        <div class="col-md-12 left-align">
+                                            <h2 class="dark-text">Library Reference</h2>
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 id="line7_1">Initializing</h4>
+                                            <p>Initializing the Database will create all directories required. It is a
+                                                good idea to keep it inside your code, incase a directory gets deleted,
+                                                and needs to be restored, or if the function gets updated in a future
+                                                update.</p>
+                                            <pre class="brush: js">
                                     const db = require("crystaldb");
 
                                     db.initialize();
                                 </pre>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
 
-                        <hr>
+                                    <hr>
 
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 id="line7_2">Writing</h4>
-                                <p>When you write data, you will need to pass through 2 arguments, the file ID, and the JSON Data. The file ID can be anything, from "foo" to "1036". The max size is 140 characters, and minimum of 1. In order to create a new file, simply write to it, as if it existed, it will automatically create it.</p>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 id="line7_2">Writing</h4>
+                                            <p>When you write data, you will need to pass through 2 arguments, the file
+                                                ID, and the JSON Data. The file ID can be anything, from "foo" to
+                                                "1036". The max size is 140 characters, and minimum of 1. In order to
+                                                create a new file, simply write to it, as if it existed, it will
+                                                automatically create it.</p>
 
-                                <pre class="brush: js">
+                                            <pre class="brush: js">
                                     const db = require("crystaldb");
                                     db.initialize();
 
-                                    const jsonData = `{"foo": "bar", "beep": "boop"}`;
+                                    const jsonData = `{"foo":"bar"}`;
                                     db.write("file-ID", jsonData)
-                                    .then(res => console.log("Data has been written!"))
+                                    .then(respose => console.log("Data has been written! " + respose))
                                     .catch(e => console.log(e))
                                 </pre>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
 
-                        <hr>
+                                    <hr>
 
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 id="line7_3">Getting</h4>
-                                <p>Getting data is a promise. When you get data, you will need to pass through 1 argument, the file ID. If there is an error, such as the file not existing, the promise will be rejected. The data returned is parsed JSON.</p>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 id="line7_3">Getting</h4>
+                                            <p>Getting data is a promise. When you get data, you will need to pass
+                                                through 1 argument, the file ID. There is an option to add an object to
+                                                return, instead of the whole array. If there is an error, such as the
+                                                file not existing, or variable not existing, the promise will be
+                                                rejected. The data returned is parsed JSON, or if you added the object
+                                                option, the object.</p>
 
-                                <pre class="brush: js">
+                                            <pre class="brush: js">
                                     const db = require("crystaldb");
                                     db.initialize();
                                     
+                                    //Getting the file
                                     db.get("file-ID")
-                                    .then(returnedData =>{
-                                        console.log(returnedData.foo);
-                                    }).catch(err => console.log(err));
+                                    .then(fileData =>{
+                                        console.log(fileData); //Logs a parsed JSON array (like v1.2.6 and earlier) since in our JSON we had {"foo":"bar"}
+                                    }).catch(e => console.log(e));
+
+                                    //Getting an object in the file
+                                    db.get("file-ID", {object: "foo"})
+                                    .then(data =>{
+                                        console.log(data); //Logs "bar" since in our JSON we had {"foo":"bar"}
+                                    }).catch(e => console.log(e));
                                 </pre>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
 
-                        <hr>
-                        
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 id="line7_4">Fetching</h4>
-                                <p>Fetching data is a promise. When you fetch data, you will need to pass through 2 arguments, the file ID, and the object you want to fetch. If there is an error, such as the file not existing or the object not existing in the file, the promise will be rejected. The data returned is the requested object.</p>
-                        
-                                <pre class="brush: js">
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 id="line7_4">Grabbing</h4>
+                                            <p>Grabbing data is not a promise. When you grab data, you will need to pass
+                                                through 1 argument, the file ID. There is an option
+                                                to add an object to return, instead of the whole array. If there is an
+                                                error, such as the file not existing, or variable
+                                                not existing, the promise will be rejected. The data returned is parsed
+                                                JSON, or if you added the object option, the
+                                                object, or if there was an error, an error.</p>
+
+                                            <pre class="brush: js">
                                                             const db = require("crystaldb");
                                                             db.initialize();
                                                             
-                                                            db.fetch("file-ID", "foo")
-                                                            .then(fetchedObject =>{
-                                                                console.log(fetchedObject); //Logs "bar"
-                                                            }).catch(err => console.log(err));
-                                                        </pre>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
+                                                            //Grabbing the file
+                                                            let fileData = db.fetch("file-ID");
+                                                            console.log(fileData); //Logs a parsed JSON array since in our JSON we had {"foo":"bar"}
 
-                        <hr>
-                        
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 id="line7_5">Grabbing</h4>
-                                <p>Grabbing data is not a promise. When you grab data, you will need to pass through 2 arguments, the file ID, and the object you want to grab. If there is an error, such as the file not existing or the object not existing in the file, the promise will be rejected. The data returned is the requested object.</p>
-                        
-                                <pre class="brush: js">
-                                                            const db = require("crystaldb");
-                                                            db.initialize();
-                                                            
-                                                            let foo = db.grab("file-ID", "foo");
-                                                            
-                                                            console.log(foo); //Logs "bar"
+                                                            //Grabbing an object in the file
+                                                            let data = db.grab("fileID", {object: "foo"})
+                                                            console.log(data) //Logs "bar" since in our JSON we had {"foo":"bar"}
                                                         </pre>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
-                        
-                        <hr>
-                        
-                        
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 id="line7_6">Existance</h4>
-                                <p>Checking the existance is not a promise, which allows you to use it in If statements easily. You have 1 argument you need to pass through, and one that is optional. The first one is the file id, if the file exists, it will return true, the optional second one is the object in the file. If the file doesn't exist, then it'll return false. If the object is not existant in the file, it'll also return false.</p>
-                        
-                                <pre class="brush: js">
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
+
+                                    <hr>
+
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 id="line7_5">Existance</h4>
+                                            <p>Checking the existance is not a promise, which allows you to use it in If
+                                                statements easily. You have 1 argument you need to pass through, and one
+                                                that is optional. The first one is the file id, if the file exists, it
+                                                will return true, the optional second one is the object in the file. If
+                                                the file doesn't exist, then it'll return false. If the object is not
+                                                existant in the file, it'll also return false.</p>
+
+                                            <pre class="brush: js">
                                                                                     const db = require("crystaldb");
                                                                                     db.initialize();
                                                                                     
-                                                                                    let fileExistance = db.exists("file-ID");
-                                                                                    
-                                                                                    if (fileExistance == true) {
-                                                                                        console.log("The file exists!");
+                                                                                    //Checking existance of a file
+                                                                                    let fileExists = db.exists("fileID")
+                                                                                    console.log(fileExists) //Logs true if the file exists, otherwise, it's false
 
-                                                                                        if (db.exists("file-ID", "foo") == true) {
-                                                                                            console.log("The object foo exists!");
-                                                                                        }
-                                                                                    }
-                                                                                    
+                                                                                    //Checking existance of a object in a file
+                                                                                    let variableExists = db.exists("fileID", {object: "foo"})
+                                                                                    console.log(variableExists) //Logs true if the file AND variable exists, otherwise, it's false
                                                                                 </pre>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
 
-                        <hr>
+                                    <hr>
 
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 id="line7_7">Deleting</h4>
-                                <p>Deleting data will delete any files with the file ID passed through. <b>This action is irreversible, and can not be undone</b> There will be an error if something is using the file, or the file is locked.</p>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 id="line7_6">Deleting</h4>
+                                            <p>Deleting data will delete any files with the file ID passed through, or an object in the file.
+                                                <b>This action is irreversible, and can not be undone</b> If you only put in the file ID, it will delete the file. If you put in the file ID, and the optional object, it will delete the object. There will be
+                                                an error if something is using the file, or the file is locked.</p>
 
-                                <pre class="brush: js">
+                                            <pre class="brush: js">
                                     const db = require("crystaldb");
                                     db.initialize();
                                     
-                                    db.delete("file-ID")
-                                    .then(res => console.log("Deleted File."))
+                                    //Deleting a file
+                                    db.delete("fileID")
+                                    .then(result => console.log(result)) //Deletes the file, then logs the success message
+                                    .catch(e => console.log(e))
+                                    
+                                    //Deleting an object in a file
+                                    db.delete("fileID", {object: "foo"})
+                                    .then(result => console.log(result)) //Deletes the variable in the file, then logs the success message
                                     .catch(e => console.log(e))
                                 </pre>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
-                    </section>
-                    <!-- end section -->
-                    <section id="line11" class="section">
-                        <br />
-                        <br />
-                        
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
+                                </section>
+                                <!-- end section -->
+                                <section id="line11" class="section">
+                                    <br />
+                                    <br />
 
-                        <div class="row">
-                            <br />
-                            <div class="col-md-12 left-align">
-                                <h2 class="dark-text">Copyright and license</h2>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                
-                                <p>CrystalDB code is released under the <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>.</p>
-                            
-                            </div>
-                        </div>
-                        <!-- end row -->
+                                    <div class="row">
+                                        <br />
+                                        <div class="col-md-12 left-align">
+                                            <h2 class="dark-text">Copyright and license</h2>
+                                        </div>
+                                        <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
 
-                    </section>
-                    <!-- end section -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <p>CrystalDB code is released under the <a
+                                                    href="https://github.com/ErikMCM/CrystalDB/blob/master/LICENSE" target="_blank">MIT
+                                                    License</a>.</p>
+
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+
+                                </section>
+                                <!-- end section -->
+                            </div>
+                            <!-- // end .col -->
+
+                        </div>
+                        <!-- // end .row -->
+
                 </div>
-                <!-- // end .col -->
+                <!-- // end container -->
 
             </div>
-            <!-- // end .row -->
+            <!-- end wrapper -->
 
-        </div>
-        <!-- // end container -->
+            <script src="js/jquery.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/retina.js"></script>
+            <script src="js/jquery.fitvids.js"></script>
+            <script src="js/wow.js"></script>
+            <script src="js/jquery.prettyPhoto.js"></script>
 
-    </div>
-    <!-- end wrapper -->
+            <!-- CUSTOM PLUGINS -->
+            <script src="js/custom.js"></script>
+            <script src="js/main.js"></script>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/retina.js"></script>
-    <script src="js/jquery.fitvids.js"></script>
-    <script src="js/wow.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-
-    <!-- CUSTOM PLUGINS -->
-    <script src="js/custom.js"></script>
-    <script src="js/main.js"></script>
-
-    <script src="js/syntax-highlighter/scripts/shCore.js"></script>
-    <script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
-    <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
-    <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
+            <script src="js/syntax-highlighter/scripts/shCore.js"></script>
+            <script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
+            <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
+            <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
 
 </body>
 
