@@ -1,14 +1,5 @@
-# CrystalDB v1.2.7 Changelog
--Depricated fetch()  
--Added the option to retrieve an object with get()  
--Added the option to retrieve the file with grab()  
--Added the option to delete an object with delete()  
+# CrystalDB Development Changelog
 
-## Suggested Code Updates
--get()'s formatting for returning a foo is get("fileID", {object: "foo"})  
--grab()'s formatting for returning a foo is grab("fileID", {object: "foo"})  
--Remove fetch() and replace it with get()  
+[12/18/2020 @ 7:24PM] - Set up new Development Branch
 
-## Documentation
-Please review the documentation ASAP, to see new code formatting for the database.
-https://crystaldb.js.org/
+## All dates are written in MM/DD/YYYY format, in the CST/CDT timezone.
